@@ -12,11 +12,11 @@ describe('diff()', function() {
   });
 
   it('finds multiple numbers not in both arrays', function() {
-    expect(diff.diffArray([1,2,4], [1,2,3])).toEqual([3,4]);
+    expect(diff.diffArray([1,2,4], [1,2,3])).toEqual([4,3]);
   });
 
   it('finds multiple numbers in each array that are not in both arrays', function() {
-    expect(diff.diffArray([1,2,4,5], [1,2,3,6])).toEqual([3,6,4,5]);
+    expect(diff.diffArray([1,2,4,5], [1,2,3,6])).toEqual([4,5,3,6]);
   });
 
 });

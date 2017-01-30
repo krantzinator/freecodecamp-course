@@ -1,24 +1,19 @@
 // Compare two arrays and return a new array with any items only found in
 // one of the two given arrays, but not both.
 
-// First solution
+// Second solution - finding a way to combine the index match functions
 
 var DiffTwoArrays = function() {};
 
 DiffTwoArrays.prototype.diffArray = function(arr1, arr2) {
   var newArr = [];
+  var workingArr = arr1.concat(arr2);
 
-  function isMatchFirst(i) {
-    return arr2.indexOf(i) === -1;
-  }
-  function isMatchSecond(i) {
-    return arr1.indexOf(i) === -1;
-  }
-  var x = arr1.filter(isMatchFirst);
-  var y = arr2.filter(isMatchSecond);
+  var x = workingArr.filter(function(i) {
+    return (arr1.indexOf(i) === -1 || arr2.indexOf(i) === -1);
+  });
 
-  newArr = y.concat(x);
-  return newArr;
+  return newArr.concat(x);
 };
 
 module.exports = DiffTwoArrays;
