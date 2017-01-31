@@ -16,8 +16,7 @@ SumAllNums.prototype.sumArrayRange = function(arr) {
   do {
     new_array.push(min);
     min += 1;
-  } while (min < max);
-  new_array.push(max);
+  } while (min <= max);
 // reduce array to sum of all elements
   var sum = new_array.reduce(function(a, b) {
     return a + b;

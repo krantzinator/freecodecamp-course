@@ -1,6 +1,6 @@
 var ConvertToRoman = require('./convert-to-roman');
 
-describe('diff()', function() {
+describe('convertToRoman()', function() {
   var conversion = new ConvertToRoman();
 
   it('1 converts to I', function() {
