@@ -6,7 +6,11 @@ PigLatin.prototype.translate = function(str) {
   var pig = "ay";
 
   if (!letter.match(/[aeiou]/)) {
-    return str1 + letter + pig;
+    if (str.charAt(1).match(/[aeiou]/)) {
+      return str1 + letter + pig;
+    } else {
+      return str.substr(2) + str.substr(0,2) + pig;
+    }
   } else {
     return str + "way";
   }

@@ -12,4 +12,9 @@ describe('translate()', function() {
     expect(translation.translate('algorithm')).toEqual('algorithmway');
   });
 
+  it('if both the first and second letters are consonants, move them both to the end',
+  function() {
+    expect(translation.translate('glove')).toEqual('oveglay');
+  });
+
 });
