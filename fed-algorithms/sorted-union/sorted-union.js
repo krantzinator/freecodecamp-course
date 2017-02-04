@@ -28,7 +28,8 @@ Sorted.prototype.uniteUnique = function(arrs) {
 
 /*
 I think the polyfill goes here, since it's defining a new prototype. I'll
-continue to research this.
+continue to research this. But would I need to put it under a new Sorted
+prototype?
 */
 // https://tc39.github.io/ecma262/#sec-array.prototype.includes
 if (!Array.prototype.includes) {
