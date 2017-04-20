@@ -21,7 +21,7 @@ var Primes = function() {};
 Primes.prototype.sumAllPrimes = function(sumToNum) {
   // create new array with indices numbered up to the given number
   // default values of false; will change to true if prime
-  var primes = new Array(sumToNum + 1).fill(false);
+  var primes = [];
   var rejects = [];
 
   // start at 2 since 0 and 1 are not primes
