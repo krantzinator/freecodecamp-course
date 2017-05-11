@@ -3,20 +3,20 @@
 var Multiples = function() {};
 
 Multiples.prototype.smallestCommon = function(arr) {
-  new_arr = Array.from(new Array(arr[1]), (x, i) => i + arr[0])
-  console.log(new_arr)
-  var a = arr[0]
-  var b = arr[1]
-  var lcm = (a * b) / this.gcd(a, b);
-  //
-  // for (i = b; i > a; i--) {
-  //   lcm = (i / this.gcd(i, i - 1)) * (i - 1)
-  // }
+  var min = Math.min(arr[0], arr[1]);
+  var max = Math.max(arr[0], arr[1]);
+  // set initial value of lcm to lcm of two highest numbers
+  var lcm = (max / this.gcd(max, max - 1)) * (max - 1);
+
+  // work backwards to lowest number to find overal lcm of range
+  for (i = max - 1; i > min; i--) {
+    lcm = (lcm / this.gcd(lcm, i - 1)) * (i - 1)
+  }
 
   return lcm;
 };
 
-Multiples.prototype.gcd = function(b, a) {
+Multiples.prototype.gcd = function(a, b) {
   // Euclidean algorithm to find greatest common denominator
   while (b !== 0) {
     var remainder = a % b;

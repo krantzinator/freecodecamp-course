@@ -19,4 +19,12 @@ describe('smallestCommon()', function() {
     expect(multiples.smallestCommon([1, 3])).toEqual(6);
   });
 
+  it('returns accurate LCM if given array has high number listed first', function() {
+    expect(multiples.smallestCommon([3, 1])).toEqual(6);
+  });
+
+  it('returns accurate LCM if array does not start with 1', function() {
+    expect(multiples.smallestCommon([23, 18])).toEqual(6056820);
+  });
+
 });
