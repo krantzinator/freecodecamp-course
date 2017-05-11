@@ -12,7 +12,7 @@ describe('smallestCommon()', function() {
   });
 
   it('returns 2 as the GCD for array [4, 6]', function() {
-    expect(multiples.gcd([4, 6])).toEqual(2);
+    expect(multiples.gcd(4, 6)).toEqual(2);
   });
 
   it('returns 6 as the LCM for range 1..3', function() {
