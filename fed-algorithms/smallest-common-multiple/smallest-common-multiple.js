@@ -10,7 +10,11 @@ Multiples.prototype.smallestCommon = function(arr) {
 
   // work backwards to lowest number to find overal lcm of range
   for (i = max - 1; i > min; i--) {
-    lcm = (lcm / this.gcd(lcm, i - 1)) * (i - 1)
+    if (lcm % (i-1) === 0){
+      lcm = lcm;
+    } else {
+      lcm = (lcm / this.gcd(lcm, i - 1)) * (i - 1);
+    }
   }
 
   return lcm;
