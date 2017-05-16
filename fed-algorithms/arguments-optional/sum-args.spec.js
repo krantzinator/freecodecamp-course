@@ -11,4 +11,16 @@ describe("addTogether()", function() {
       expect(sumArgs.addTogether(2)(3)).toEqual(5);
   });
 
+  it('returns undefined', function() {
+      expect(sumArgs.addTogether("http://bit.ly/IqT6zt")).toEqual(undefined);
+  });
+
+  it('returns undefined when second argument is not a number', function() {
+      expect(sumArgs.addTogether(2, "3")).toEqual(undefined);
+  });
+
+  it('returns undefined when second closure argument is not a number', function() {
+      expect(sumArgs.addTogether(2)([3])).toEqual(undefined);
+  });
+
 });
