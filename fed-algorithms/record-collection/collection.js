@@ -31,6 +31,16 @@ Collection.prototype.collectionCopy = function() {
 };
 
 Collection.prototype.updateRecords = function(id, prop, value) {
+  if (value === "") {
+    delete collectionObject[id][prop];
+  } else if (prop !== "tracks") {
+      collectionObject[id][prop] = value;
+  } else {
+    if (!collectionObject[id].tracks) {
+      collectionObject[id][prop] = [];
+    }
+    collectionObject[id][prop].push(value);
+  }
 
   return collectionObject;
 };
