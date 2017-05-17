@@ -1,6 +1,6 @@
 var Collection = function() {};
 
-var collection = {
+var collectionObject = {
     "2548": {
       "album": "Slippery When Wet",
       "artist": "Bon Jovi",
@@ -27,12 +27,12 @@ var collection = {
 };
 
 Collection.prototype.collectionCopy = function() {
-  return JSON.parse(JSON.stringify(collection));
+  return JSON.parse(JSON.stringify(collectionObject));
 };
 
 Collection.prototype.updateRecords = function(id, prop, value) {
 
-  return collection;
+  return collectionObject;
 };
 
 module.exports = Collection;
