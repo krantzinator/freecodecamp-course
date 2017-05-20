@@ -7,13 +7,18 @@ SymmetricDifference.prototype.compute = function(args) {
 
   function filterDupes(arr, secondArr) {
     return arr.filter(function(num) {
+      // console.log(num, secondArr);
       return secondArr.indexOf(num) === -1;
     });
   }
-  var newArray = filterDupes(args1, args2);
-  var newArray2 = filterDupes(args2, args1);
 
-  return newArray.concat(newArray2).sort();
+  var bestArray = argsArray.reduce(function(acc, val) {
+    // console.log("acc = ", acc);
+    return filterDupes(acc, val).concat(filterDupes(val, acc));
+  },[]);
+
+  return bestArray.sort();
+
 };
 
 module.exports = SymmetricDifference;
