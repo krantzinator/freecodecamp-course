@@ -17,7 +17,11 @@ SymmetricDifference.prototype.compute = function(args) {
     return filterDupes(acc, val).concat(filterDupes(val, acc));
   },[]);
 
-  return bestArray.sort();
+  var betterArray = bestArray.filter(function(num, index) {
+    return bestArray.indexOf(num) === index;
+  });
+
+  return betterArray.sort();
 
 };
 
