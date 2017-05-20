@@ -15,6 +15,4 @@ describe('compute()', function() {
   //     expect(symmetricDifference.compute([1, 2, 5], [2, 3, 5], [3, 4, 5])).toEqual([1, 4, 5]);
   // });
 
-
-
 });

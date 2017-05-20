@@ -5,13 +5,14 @@ SymmetricDifference.prototype.compute = function(args) {
   var args1 = argsArray[0];
   var args2 = argsArray[1];
 
-  var newArray = args1.filter(function(num) {
-    return args2.indexOf(num) === -1;
-  });
-  var newArray2 = args2.filter(function(num) {
-    return args1.indexOf(num) === -1;
-  });
-  
+  function filterDupes(arr, secondArr) {
+    return arr.filter(function(num) {
+      return secondArr.indexOf(num) === -1;
+    });
+  }
+  var newArray = filterDupes(args1, args2);
+  var newArray2 = filterDupes(args2, args1);
+
   return newArray.concat(newArray2).sort();
 };
 
