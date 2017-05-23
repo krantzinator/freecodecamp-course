@@ -7,13 +7,13 @@ SymmetricDifference.prototype.compute = function(args) {
 
   function filterDupes(arr, secondArr) {
     return arr.filter(function(num) {
-      // console.log(num, secondArr);
+      // console.log(secondArr, num);
       return secondArr.indexOf(num) === -1;
     });
   }
 
   var bestArray = argsArray.reduce(function(acc, val) {
-    // console.log("acc = ", acc);
+    //console.log("acc = ", acc);
     return filterDupes(acc, val).concat(filterDupes(val, acc));
   },[]);
 
@@ -26,3 +26,19 @@ SymmetricDifference.prototype.compute = function(args) {
 };
 
 module.exports = SymmetricDifference;
+
+// example output from console.log of first test
+// [1, 2, 3], [5, 2, 1, 4]
+
+// acc =  []
+// [] 1
+// [] 2
+// [] 3
+// acc =  [ 1, 2, 3 ]
+// [ 5, 2, 1, 4 ] 1
+// [ 5, 2, 1, 4 ] 2
+// [ 5, 2, 1, 4 ] 3
+// [ 1, 2, 3 ] 5
+// [ 1, 2, 3 ] 2
+// [ 1, 2, 3 ] 1
+// [ 1, 2, 3 ] 4
