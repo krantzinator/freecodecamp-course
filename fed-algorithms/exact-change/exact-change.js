@@ -23,8 +23,23 @@ var changeDueObj = {"PENNY": 0.01,
 
 CashRegister.prototype.checkDrawer = function(price, cash, cid) {
 	var changeDue = cash - price;
+	var arrayOfMonies = Object.keys(changeDueObj);
 
+	var cidObj = {};
+	cid.forEach(function(item){
+		cidObj[item[0]] = item[1];
+	});
+	console.log(cidObj);
+	console.log(changeDue);
+	console.log(arrayOfMonies);
+	console.log(cidObj.PENNY);
 	// need to convert cid aray into form comparable to changeDue
+
+	// if changeDue % arrayOfMonies[key/value] <= 1 then y = Math.floor(changeDue % arrayOfMonies[key/value])
+	// answer.push(arrayOfMonies[key]: y * arrayOfMonies[value])
+	// changeDue -= y
+	// repeat for next item in arrayOfMonies (iterate through descending order)
+
 
 	if (changeDue > cid) {
 		return "Insufficient Funds";
