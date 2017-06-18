@@ -11,19 +11,18 @@ var CashRegister = function(){};
 // ["TWENTY", 60.00],
 // ["ONE HUNDRED", 100.00]]
 
-var changeDueObj = {	"PENNY": 0.01,
-											"NICKEL": 0.5,
-											"DIME": 0.10,
-											"QUARTER": 0.25,
-											"ONE": 1.00,
-											"FIVE": 5.00,
-											"TEN": 10.00,
-											"TWENTY": 20.00,
-											"ONE HUNDRED": 100.00};
+const CURRENCY_MAP = [["ONE HUNDRED", 100.00],
+										["TWENTY", 20.00],
+										["TEN", 10.00],
+										["FIVE", 5.00],
+										["ONE", 1.00],
+										["QUARTER", 0.25],
+										["DIME", 0.10],
+										["NICKEL", 0.5],
+										["PENNY", 0.01]];
 
 CashRegister.prototype.checkDrawer = function(price, cash, cid) {
 	var changeDue = cash - price;
-	var arrayOfMonies = Object.keys(changeDueObj);
 	var totalCashInDrawer = 0;
 
 	// first convert cash-in-drawer to total change to evaluate if change can be paid out
@@ -33,15 +32,12 @@ CashRegister.prototype.checkDrawer = function(price, cash, cid) {
 	// necessary to remove the extended floating numberals, i.e. .4999999999999 instead of .50
 	totalCashInDrawer = parseFloat(totalCashInDrawer.toFixed(2));
 
-	var cidObj = {};
-	cid.forEach(function(item){
-		cidObj[item[0]] = item[1];
-	});
-	console.log(cidObj);
-	console.log(changeDue);
-	console.log(arrayOfMonies);
-	console.log(cidObj.PENNY);
-	// need to convert cid aray into form comparable to changeDue
+	// var cidObj = {};
+	// cid.forEach(function(item){
+	// 	cidObj[item[0]] = item[1];
+	// });
+	// console.log(cidObj);
+	// console.log(cidObj.PENNY);
 
 	// if changeDue % arrayOfMonies[key/value] <= 1 then y = Math.floor(changeDue % arrayOfMonies[key/value])
 	// answer.push(arrayOfMonies[key]: y * arrayOfMonies[value])
@@ -54,21 +50,27 @@ CashRegister.prototype.checkDrawer = function(price, cash, cid) {
 	} else if (totalCashInDrawer === changeDue) {
 		return "Closed";
 	} else {
-		// rest of the function
-		return change;
+		var res = this.calculateCurrencyBreakdown(changeDue);
+		console.log(res);
+		return res;
 	}
 
 };
 
 CashRegister.prototype.calculateCurrencyBreakdown = function(change) {
-	for (let [key, value] of changeDueObj) {
-		if (change % value >= 1)
-			var x = Math.floor(change / value);
-			// x = 2
-			var y = value * x;
-			// y = .50
-
+	var result = [];
+	for (let [key, value] of CURRENCY_MAP) {
+		console.log(change, value, " = ", change - value);
+		if (change - value >= 0) {
+			var x = parseFloat((Math.floor(change / value) * value).toFixed(2));
+			result.push([key, x]);
+			change -= x;
+			if (change > 0) {
+				this.calculateCurrencyBreakdown(change);
+			}
+		}
 	}
+	return result;
 };
 
 module.exports = CashRegister;
