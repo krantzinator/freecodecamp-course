@@ -11,7 +11,7 @@ var CashRegister = function(){};
 // ["TWENTY", 60.00],
 // ["ONE HUNDRED", 100.00]]
 
-var changeDueObj = {"PENNY": 0.01,
+var changeDueObj = {	"PENNY": 0.01,
 											"NICKEL": 0.5,
 											"DIME": 0.10,
 											"QUARTER": 0.25,
@@ -24,6 +24,14 @@ var changeDueObj = {"PENNY": 0.01,
 CashRegister.prototype.checkDrawer = function(price, cash, cid) {
 	var changeDue = cash - price;
 	var arrayOfMonies = Object.keys(changeDueObj);
+	var totalCashInDrawer = 0;
+
+	// first convert cash-in-drawer to total change to evaluate if change can be paid out
+	for (let [key, value] of cid) {
+		totalCashInDrawer += value;
+	}
+	// necessary to remove the extended floating numberals, i.e. .4999999999999 instead of .50
+	totalCashInDrawer = parseFloat(totalCashInDrawer.toFixed(2));
 
 	var cidObj = {};
 	cid.forEach(function(item){
@@ -41,9 +49,9 @@ CashRegister.prototype.checkDrawer = function(price, cash, cid) {
 	// repeat for next item in arrayOfMonies (iterate through descending order)
 
 
-	if (changeDue > cid) {
+	if (changeDue > totalCashInDrawer) {
 		return "Insufficient Funds";
-	} else if (cid === changeDue) {
+	} else if (totalCashInDrawer === changeDue) {
 		return "Closed";
 	} else {
 		// rest of the function
@@ -53,7 +61,14 @@ CashRegister.prototype.checkDrawer = function(price, cash, cid) {
 };
 
 CashRegister.prototype.calculateCurrencyBreakdown = function(change) {
+	for (let [key, value] of changeDueObj) {
+		if (change % value >= 1)
+			var x = Math.floor(change / value);
+			// x = 2
+			var y = value * x;
+			// y = .50
 
+	}
 };
 
 module.exports = CashRegister;
