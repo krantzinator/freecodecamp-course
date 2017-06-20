@@ -18,10 +18,14 @@ const CURRENCY_MAP = [["ONE HUNDRED", 100.00],
 										["ONE", 1.00],
 										["QUARTER", 0.25],
 										["DIME", 0.10],
-										["NICKEL", 0.5],
+										["NICKEL", 0.05],
 										["PENNY", 0.01]];
 
 CashRegister.prototype.checkDrawer = function(price, cash, cid) {
+	var cidObj = {};
+	cid.forEach(function(item){
+		cidObj[item[0]] = item[1];
+	});
 	var changeDue = cash - price;
 	var totalCashInDrawer = 0;
 
@@ -32,45 +36,40 @@ CashRegister.prototype.checkDrawer = function(price, cash, cid) {
 	// necessary to remove the extended floating numberals, i.e. .4999999999999 instead of .50
 	totalCashInDrawer = parseFloat(totalCashInDrawer.toFixed(2));
 
-	// var cidObj = {};
-	// cid.forEach(function(item){
-	// 	cidObj[item[0]] = item[1];
-	// });
-	// console.log(cidObj);
-	// console.log(cidObj.PENNY);
-
-	// if changeDue % arrayOfMonies[key/value] <= 1 then y = Math.floor(changeDue % arrayOfMonies[key/value])
-	// answer.push(arrayOfMonies[key]: y * arrayOfMonies[value])
-	// changeDue -= y
-	// repeat for next item in arrayOfMonies (iterate through descending order)
-
-
 	if (changeDue > totalCashInDrawer) {
 		return "Insufficient Funds";
 	} else if (totalCashInDrawer === changeDue) {
 		return "Closed";
 	} else {
-		var res = this.calculateCurrencyBreakdown(changeDue);
-		console.log(res);
+		var res = this.calculateCurrencyBreakdown(changeDue, cidObj);
 		return res;
 	}
 
 };
 
-CashRegister.prototype.calculateCurrencyBreakdown = function(change) {
+CashRegister.prototype.calculateCurrencyBreakdown = function(change, cidObj) {
 	var result = [];
+
 	for (let [key, value] of CURRENCY_MAP) {
-		console.log(change, value, " = ", change - value);
 		if (change - value >= 0) {
-			var x = parseFloat((Math.floor(change / value) * value).toFixed(2));
+			var x = parseFloat((Math.floor(this.useCidOrChange(key, change, cidObj) / value) * value).toFixed(2));
 			result.push([key, x]);
-			change -= x;
-			if (change > 0) {
-				this.calculateCurrencyBreakdown(change);
+			change = parseFloat((change - x).toFixed(2));
+			if (change > 0 && key !== "PENNY") {
+				this.calculateCurrencyBreakdown(change, cidObj);
 			}
 		}
+		// then again, maybe recursion isn't the answer; i'm exceeding my stack here
 	}
 	return result;
+};
+
+CashRegister.prototype.useCidOrChange = function(key, change, cidObj) {
+	if (cidObj[key] > change) {
+		return change;
+	} else {
+		return cidObj[key];
+	}
 };
 
 module.exports = CashRegister;

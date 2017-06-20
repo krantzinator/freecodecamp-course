@@ -20,6 +20,11 @@ describe('checkDrawer()', function(){
   });
 
   it('returns Insufficient Funds when there is less change in the drawer vs change due', function() {
+    expect(cashRegister.checkDrawer(19.50, 20.00, [["PENNY", 0.01], ["NICKEL", 0], ["DIME", 0], ["QUARTER", 0], ["ONE", 1.00], ["FIVE", 0], ["TEN", 0], ["TWENTY", 0], ["ONE HUNDRED", 0]])).
+    toEqual('Insufficient Funds');
+  });
+
+  it('returns Insufficient Funds when there is less change in the drawer vs change due', function() {
     expect(cashRegister.checkDrawer(19.50, 20.00, [["PENNY", 0.01], ["NICKEL", 0], ["DIME", 0], ["QUARTER", 0], ["ONE", 0], ["FIVE", 0], ["TEN", 0], ["TWENTY", 0], ["ONE HUNDRED", 0]])).
     toEqual('Insufficient Funds');
   });
