@@ -51,17 +51,14 @@ CashRegister.prototype.calculateCurrencyBreakdown = function(change, cidObj) {
 	var result = [];
 
 	for (let [key, value] of CURRENCY_MAP) {
-		if (change - value >= 0) {
-			var x = parseFloat((Math.floor(this.useCidOrChange(key, change, cidObj) / value) * value).toFixed(2));
-			result.push([key, x]);
-			change = parseFloat((change - x).toFixed(2));
-			if (change > 0 && key !== "PENNY") {
-				this.calculateCurrencyBreakdown(change, cidObj);
-			}
-		}
-		// then again, maybe recursion isn't the answer; i'm exceeding my stack here
+		if (change - value < 0) { continue; }
+		var x = parseFloat((Math.floor(this.useCidOrChange(key, change, cidObj) / value) * value).toFixed(2));
+		result.push([key, x]);
+		change = parseFloat((change - x).toFixed(2));
 	}
-	return result;
+
+	if (change !== 0) { return "Insufficient Funds"; }
+	else { return result; }
 };
 
 CashRegister.prototype.useCidOrChange = function(key, change, cidObj) {
