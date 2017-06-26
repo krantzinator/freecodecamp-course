@@ -5,7 +5,22 @@ var Inventory = function(){};
 // new item and quantity into the inventory array. The returned inventory array should be in alphabetical order by item.
 
 Inventory.prototype.update = function(arr1, arr2) {
-  return arr1;
+  var newArray = arr1.concat(arr2);
+
+  return newArray;
 };
 
 module.exports = Inventory;
+
+// var flattened = [[0, 1], [2, 3], [4, 5]].reduce(
+//   function(a, b) {
+//     return a.concat(b);
+//   },
+//   []
+// );
+//
+// function filterItems(query) {
+//     return fruits.filter(function(el) {
+//      return el.toLowerCase().indexOf(query.toLowerCase()) > -1;
+//     })
+// }
