@@ -5,34 +5,23 @@ var Inventory = function(){};
 // new item and quantity into the inventory array. The returned inventory array should be in alphabetical order by item.
 
 Inventory.prototype.update = function(arr1, arr2) {
-  // var firstArray = arr1.map(function(x) {
-  //   for (let [amount, item] of arr2) {
-  //     if (x[1] === item) {
-  //       continue;
-  //     } else {
-  //       return [amount, item];
-  //     }
-  //   }
-  // });
+  var collapsedArray = arr2.reduce(function(a, b) {
+    return a.concat(b);
+  }, []);
 
-  var firstArray = [];
-  for (let [amount, item] of arr1) {
-    arr2.forEach(function(y) {
-      if (item != y[1]) {
-        firstArray.push([amount, item]);
-      }
-    })
-  }
+  var firstArray = arr1.filter(function(item) {
+    return !collapsedArray.includes(item[1]);
+  });
 
   var secondArray = arr2.map(function(x) {
     console.log("x =", x);
     for (let [amount, item] of arr1) {
       console.log("x =", x, "; amount, item = ", amount, item);
       if (x[1] === item) {
-        console.log("returning", amount, x[0]);
+        console.log("returning", amount + x[0], item);
         return [amount + x[0], item];
       } else {
-        console.log("returning x[0], x[1]");
+        console.log("returning", x[0], x[1]);
         return [x[0], x[1]];
       }
     }
