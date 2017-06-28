@@ -29,7 +29,7 @@ Inventory.prototype.update = function(arr1, arr2) {
     for (let [amount, item] of arr1) {
       console.log("x =", x, "; amount, item = ", amount, item);
       if (x[1] === item) {
-        console.log("returning amount, x[0]");
+        console.log("returning", amount, x[0]);
         return [amount + x[0], item];
       } else {
         console.log("returning x[0], x[1]");
